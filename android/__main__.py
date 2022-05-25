@@ -205,7 +205,7 @@ if __name__ == "__main__":
                 kackez=0
                 continue
         if (islem == 2 and reaction!="" and hedefpost!="" and  kackez != 0) or (islem == 1 and yorum !=""):
-            if islem==2
+            if islem==2:
                 basarili("Emoji: {}\nKaç kez atılacak: {}".format(reaction,kackez))
             else:
                 basarili("Yorum: {}".format(yorum))
