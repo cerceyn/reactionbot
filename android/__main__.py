@@ -7,6 +7,11 @@ from pyrogram.errors import (
 from pyrogram import Client as PyrogramClient
 from . import *
 import sys
+
+######################################################################
+######################################################################
+######################################################################
+
 userbot=None
 mainuserbot=None
 
@@ -17,6 +22,20 @@ api_hash=""
 calinacakgrup=""
 
 Clients= []
+hedefpost=""
+chat=None
+yorum=""
+chatid=0
+messageid=0
+islem=0
+reactions=["❤️","👍","👎","😁","🎉","😱","🔥","👏","🤔","🤩","🥳","🤮","💩","😥","🤯"]
+reaction=""
+kackez=0
+
+######################################################################
+######################################################################
+######################################################################
+
 
 def hesaplariolustur ():
     global mainuserbot,dosya
@@ -137,22 +156,13 @@ def ifade_at(app):
     app.send_reaction(chat_id=chatid,message_id=int(messageid),emoji=str(reaction))
 
 def yorum_at(app):
+    global chatid,messageid,yorum
     # Get the discussion message
     m = app.get_discussion_message(chatid, messageid)
-    global chatid,messageid,yorum
     # Comment to the post by replying
     m.reply(yorum)
 
 
-hedefpost=""
-chat=None
-yorum=""
-chatid=0
-messageid=0
-islem=0
-reactions=["❤️","👍","👎","😁","🎉","😱","🔥","👏","🤔","🤩","🥳","🤮","💩","😥","🤯"]
-reaction=""
-kackez=0
 if __name__ == "__main__":
     logo(True)
     sifre = soru("Şifre:")
