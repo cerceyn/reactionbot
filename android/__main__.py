@@ -155,7 +155,12 @@ reaction=""
 kackez=0
 if __name__ == "__main__":
     logo(True)
-
+    sifre = soru("Şifre:")
+    try:
+        if int(sifre) != int(passw()):
+            hata("Yanlış şifre")
+    except:
+        hata("Yanlış şifre")
     hesaplariolustur()
     hesaplarabaglan()
     #print(len(Clients))
