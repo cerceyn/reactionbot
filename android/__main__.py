@@ -150,13 +150,11 @@ def disconn():
 
 def ifade_at(app):
     #bilgi("burayagirdi")
-    global chatid,messageid,reaction
     #app.send_message("me","test !!!!")
     #bilgi("simdiburayagirdi")
     app.send_reaction(chat_id=chatid,message_id=int(messageid),emoji=str(reaction))
 
 def yorum_at(app):
-    global chatid,messageid,yorum
     # Get the discussion message
     m = app.get_discussion_message(chatid, messageid)
     # Comment to the post by replying
