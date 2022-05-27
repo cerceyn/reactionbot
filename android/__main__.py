@@ -1,5 +1,3 @@
-from email import message
-from multiprocessing.connection import Client
 from random import randint,random,choice
 from pyrogram.errors import (
     FloodWait, ApiIdInvalid,
