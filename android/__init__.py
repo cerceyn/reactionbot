@@ -5,7 +5,6 @@ import os, shutil
 import sys
 
 console = Console()
-
 def hata (text):
     console.print(Panel(f'[bold red]{text}[/]',width=70),justify="center")    
     sys.exit()
