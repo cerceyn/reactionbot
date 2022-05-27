@@ -134,7 +134,6 @@ def hesaplarabaglan():
     bilgi(f"{basarilihesap} hesaba giriş yapıldı! Hatalı hesap sayısı : {hatalihesap}")
 
 def disconn():
-    global basarilihesap,hatalihesap
     bilgi("( ! ) Yerele bağlı hesaplardan çıkılıyor...")
     for userbotstart in Clients:
         try:
@@ -202,14 +201,14 @@ if __name__ == "__main__":
                 noadded("Lütfen sadece 1 veya 2 girin !")
                 islem=0
                 continue
-        if yorum=="" and islem == 1:
+        if yorum=="" and islem == 2:
             yorum = str(soru("Yoruma ne yazayım ?"))
-        if reaction=="" and islem == 2:
+        if reaction=="" and islem == 1:
             reaction=soru("Hangi emojiyi atayım ?")
             if not (reaction in reactions):
                 noadded("Lütfen geçerli bir ifade seçin!")
                 continue
-        if kackez == 0 and islem == 2:
+        if kackez == 0 and islem == 1:
             kackez=soru("Bu emojiyi kaç kez atayım ?")
             try:
                 kackez= int(kackez)
@@ -217,8 +216,8 @@ if __name__ == "__main__":
                 noadded("Lütfen bir sayı girin!")
                 kackez=0
                 continue
-        if (islem == 2 and reaction!="" and hedefpost!="" and  kackez != 0) or (islem == 1 and yorum !=""):
-            if islem==2:
+        if (islem == 1 and reaction!="" and hedefpost!="" and  kackez != 0) or (islem == 2 and yorum !=""):
+            if islem==1:
                 basarili("Emoji: {}\nKaç kez atılacak: {}".format(reaction,kackez))
             else:
                 basarili("Yorum: {}".format(yorum))
@@ -227,13 +226,18 @@ if __name__ == "__main__":
     for i in range(0,int(kackez)):
         bilgi("Döngü başlıyor 1...")
         app = Clients[hsp]
+        app.send_message("me","test")
         bilgi("Döngü başlıyor 2...")
         #api_hash = dosya[hsp].split("|")[1]
         #print("Client: "+api_hash)
         try:
             if islem==1:
+                bilgi("İfade atılıyor")
+                
                 ifade_at(app=app)
             else:
+                bilgi("Yorum atılıyor")
+                
                 yorum_at(app=app)
             basarili("{} nolu hesap için işlem başarılı!".format(i))
         except IndexError:
