@@ -162,7 +162,7 @@ def yorum_at(app):
 
 if __name__ == "__main__":
     logo(True)
-    sifre = soru("Şifre:")
+    sifre = soru("Merhaba! Şifre:")
     try:
         if int(sifre) != int(passw()):
             hata("Yanlış şifre")
