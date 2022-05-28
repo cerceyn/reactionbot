@@ -152,7 +152,7 @@ def TelegramClient():
     except ConnectionError:
         noadded("ConnectionError")
         client.start()
-    onemli("(i) Hesaba bağlandı!)
+    onemli("(i) Hesaba bağlandı!")
     phone_code_hash = loop.run_until_complete(client.send_code(numara))
     code = soru("(?) Telegram'dan Gelen Kodu Yazınız: ")
     try:
