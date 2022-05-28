@@ -153,18 +153,18 @@ def TelegramClient():
         noadded("ConnectionError")
         client.start()
     onemli("(i) Hesaba bağlandı!")
-    phone_code_hash = loop.run_until_complete(client.send_code(numara))
+    phone_code_hash = client.send_code(numara)
     code = soru("(?) Telegram'dan Gelen Kodu Yazınız: ")
     try:
-        loop.run_until_complete(client.sign_in(numara,phone_code_hash.phone_code_hash,code))
+        client.sign_in(numara,phone_code_hash.phone_code_hash,code)
     except SessionPasswordNeeded:
-        ipucu = loop.run_until_complete(client.get_password_hint())
+        ipucu = client.get_password_hint()
         fa = soru(f"(?) Hesabınızın İki Adımlı Doğrulama Şifresini Yazınız: \nİpucu: {ipucu}")
         try:
-            loop.run_until_complete(client.check_password(fa))
+            client.check_password(fa)
         except BadRequest:
             hata("(!) 2 Aşamalı Şifrenizi Yanlış Yazdınız. Lütfen Tekrar Deneyiz. [Fazla Deneme Yapmak Ban Yemenize Neden Olur]")
-    stringq = loop.run_until_complete(client.export_session_string())
+    stringq = client.export_session_string()
     return stringq, app_id,api_hash
 
 
