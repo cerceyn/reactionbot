@@ -93,7 +93,7 @@ def hesaplariolustur ():
             device_model='Mac',
             system_version=' | Powered by @cerceyn',
             app_version=str('| 1.0'),
-            in_memory=False)
+            in_memory=True)
             Clients.append(userbot)
             basarili(api_hash + " için client oluşturuldu !")
         except FloodWait as e:
@@ -130,7 +130,7 @@ def hesaplarabaglan():
             hatalihesap+=1
         hesapno+=1
     bilgi(f"{basarilihesap} hesaba giriş yapıldı! Hatalı hesap sayısı : {hatalihesap}")
-
+    return basarilihesap
 def disconn():
     bilgi("( ! ) Yerele bağlı hesaplardan çıkılıyor...")
     for userbotstart in Clients:
@@ -145,13 +145,13 @@ def disconn():
             pass
 
 
-def ifade_at(app):
+def ifade_at(app,chatid,messageid,reaction):
     #bilgi("burayagirdi")
     #app.send_message("me","test !!!!")
     #bilgi("simdiburayagirdi")
     app.send_reaction(chat_id=chatid,message_id=int(messageid),emoji=str(reaction))
 
-def yorum_at(app):
+def yorum_at(app,chatid,messageid):
     # Get the discussion message
     m = app.get_discussion_message(chatid, messageid)
     # Comment to the post by replying
@@ -167,7 +167,9 @@ if __name__ == "__main__":
     except:
         hata("Yanlış şifre")
     hesaplariolustur()
-    hesaplarabaglan()
+    basarilihesap= hesaplarabaglan()
+    if basarilihesap==0:
+        hata("Hiçbir hesaba giriş yapılamadı !")
     #print(len(Clients))
     while True:
         if hedefpost=="":
@@ -207,9 +209,16 @@ if __name__ == "__main__":
                 noadded("Lütfen geçerli bir ifade seçin!")
                 continue
         if kackez == 0 and islem == 1:
-            kackez=soru("Bu emojiyi kaç kez atayım ?")
+            kackez=soru("Bu emojiyi kaç kez atayım ? Tüm hesapları kullanmak için 'max' yazın")
             try:
+                if kackez == "max":
+                    bilgi("Sizin için maksumuma ayarlıyorum")
+                    kackez = basarilihesap
+                    continue
                 kackez= int(kackez)
+                if kackez > basarilihesap:
+                    bilgi("Maksimum hesap sayısını geçiyorsunuz! Sizin için maksumuma ayarlıyorum")
+
             except:
                 noadded("Lütfen bir sayı girin!")
                 kackez=0
@@ -222,21 +231,21 @@ if __name__ == "__main__":
             break
     hsp=0
     for i in range(0,int(kackez)):
-        bilgi("Döngü başlıyor 1...")
+        bilgi("Hesap ayarlanıyor...")
         app = Clients[hsp]
         app.send_message("me","test")
-        bilgi("Döngü başlıyor 2...")
+        bilgi("İşlem deneniyor...")
         #api_hash = dosya[hsp].split("|")[1]
         #print("Client: "+api_hash)
         try:
             if islem==1:
                 bilgi("İfade atılıyor")
                 
-                ifade_at(app=app)
+                ifade_at(app=app,chatid=chatid,messageid=messageid,reaction=reaction)
             else:
                 bilgi("Yorum atılıyor")
                 
-                yorum_at(app=app)
+                yorum_at(app=app,chatid=chatid,messageid=messageid)
             basarili("{} nolu hesap için işlem başarılı!".format(i))
         except IndexError:
             noadded("IndexError.")
@@ -248,10 +257,6 @@ if __name__ == "__main__":
                 pass
             try:
                 app.connect()
-            except:
-                pass
-            try:
-                islem(app)
             except:
                 pass
         except Exception as e:
