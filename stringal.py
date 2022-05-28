@@ -140,7 +140,7 @@ def main():
 
 def TelegramClient():
     numara, app_id, api_hash = main()
-    dt = datetime.datetime.now
+    dt = datetime.datetime.now()
     client = Client("userbot",
                 api_id=app_id,
                 api_hash=api_hash,
