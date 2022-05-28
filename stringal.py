@@ -182,7 +182,7 @@ if __name__ == "__main__":
     logo(True)
     while True:
         stringq, app_id,api_hash = TelegramClient()
-        satir = "{}|{}|{}".format(API_ID,API_HASH,stringq)
+        satir = "{}|{}|{}".format(app_id,api_hash,stringq)
         print(f"\n\nSatır: {satir}\n\n")
         try:
             with open("hesaplar.txt","a") as file:
