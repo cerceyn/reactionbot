@@ -167,6 +167,8 @@ def TelegramClient():
             bilgi("(i) İki Faktörlü Şifreniz Doğru !")
         except BadRequest:
             hata("(!) 2 Aşamalı Şifrenizi Yanlış Yazdınız. Lütfen Tekrar Deneyiz. [Fazla Deneme Yapmak Ban Yemenize Neden Olur]")
+        except (TimeoutError,Exception):
+            stringq = client.export_session_string()
     bilgi("(i) Stringi dışa aktarmaya çalışıyorum")
     stringq = client.export_session_string()
     return stringq, app_id,api_hash
