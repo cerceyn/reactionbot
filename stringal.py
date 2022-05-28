@@ -131,7 +131,7 @@ def main():
             onemli(f"API HASH: {api_hash}")
             bilgi("(i) String alınıyor...")
 
-            return app_id, api_hash
+            return numara, app_id, api_hash
         else:
             hata("(!) Bir Hata Oluştu.")
 
