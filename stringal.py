@@ -1,4 +1,5 @@
 import asyncio,os, bs4
+import datetime
 from pyrogram import Client
 from pyrogram.errors import *
 from rich.panel import Panel
@@ -139,13 +140,14 @@ def main():
 
 def TelegramClient():
     numara, app_id, api_hash = main()
+    dt = datetime.datetime.now
     client = Client("userbot",
                 api_id=app_id,
                 api_hash=api_hash,
                 phone_number=numara,
                 device_model='Mac',
                 system_version=' | Powered by @cerceyn',
-                app_version=str('| 1.0'),
+                app_version=str('| 1.0 | {}:{}'.format(dt.hour,dt.minute)),
                 in_memory=True)
     try:
         client.connect()
