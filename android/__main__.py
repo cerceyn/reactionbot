@@ -228,7 +228,7 @@ if __name__ == "__main__":
                 basarili("Emoji: {}\nKaç kez atılacak: {}".format(reaction,kackez))
             else:
                 basarili("Yorum: {}".format(yorum))
-            break
+                
     hsp=0
     for i in range(0,int(kackez)):
         bilgi("Hesap ayarlanıyor...")
