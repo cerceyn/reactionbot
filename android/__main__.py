@@ -1,10 +1,9 @@
-from random import randint,random,choice
-from pyrogram.errors import (
-    FloodWait, ApiIdInvalid,
-)
+from random import choice, randint, random
+
 from pyrogram import Client as PyrogramClient
+from pyrogram.errors import ApiIdInvalid, FloodWait
+
 from . import *
-import sys
 
 ######################################################################
 ######################################################################
@@ -45,6 +44,7 @@ def hesaplariolustur ():
     with open(dizin,"r") as file:
         dosya = file.read()
         dosya = dosya.split("\n")
+    hsp=0
     for i in dosya:
         ii = i.split("|")
         
@@ -61,7 +61,7 @@ def hesaplariolustur ():
                 mainmi= bool(ii[3])
             except IndexError:
                 mainmi = None
-                if i == 0:
+                if hsp == 0:
                     mainmi = True
             except Exception:
                 mainmi = None
@@ -77,12 +77,17 @@ def hesaplariolustur ():
                 system_version=' | Powered by @cerceyn',
                 app_version=str('| 1.0'),
                 in_memory=False)
-                basarili(api_hash + " için main client oluşturuldu !")
+                basarili(api_hash + " için ana client oluşturuldu !")
             except FloodWait as e:
-                hata(api_hash + f" için main client oluşturulamadı ! 🛑 Floodwait: {e.x}")
+                bilgi("Hesaplar dosyanızdaki ilk satırda bulunan bot her zaman ana hesap olarak ayarlanmaktadır! Lütfen bilgileri düzeltin!")
+                hata(api_hash + f" için ana client oluşturulamadı ! 🛑 Floodwait: {e.x}")
             except ApiIdInvalid:
-                hata(api_hash + f" için main client oluşturulamadı ! 🛑 Api Id veya Hash Hatalı!")
-
+                bilgi("Hesaplar dosyanızdaki ilk satırda bulunan bot her zaman ana hesap olarak ayarlanmaktadır! Lütfen bilgileri düzeltin!")
+                hata(api_hash + f" için ana client oluşturulamadı ! 🛑 Api Id veya Hash Hatalı!")
+            except Exception as e:
+                bilgi("Hesaplar dosyanızdaki ilk satırda bulunan bot her zaman ana hesap olarak ayarlanmaktadır! Lütfen bilgileri düzeltin!")
+                hata(api_hash + f" için ana client oluşturulamadı ! 🛑 Api Id veya Hash Hatalı!")
+        hsp+=1
 
         try:
             userbot = PyrogramClient(
@@ -149,13 +154,19 @@ def ifade_at(app,chatid,messageid,reaction):
     #bilgi("burayagirdi")
     #app.send_message("me","test !!!!")
     #bilgi("simdiburayagirdi")
-    app.send_reaction(chat_id=chatid,message_id=int(messageid),emoji=str(reaction))
-
+    try:
+        app.send_reaction(chat_id=chatid,message_id=int(messageid),emoji=str(reaction))
+    except Exception as e:
+        noadded("İfade atılamadı! Sebep:"+str(e))
 def yorum_at(app,chatid,messageid):
-    # Get the discussion message
-    m = app.get_discussion_message(chatid, messageid)
-    # Comment to the post by replying
-    m.reply(yorum)
+    try:
+        # Get the discussion message
+        m = app.get_discussion_message(chatid, messageid)
+        # Comment to the post by replying
+        m.reply(yorum)
+    except Exception as e:
+        noadded("Yorum atılamadı! Sebep:"+str(e))
+
 
 
 if __name__ == "__main__":
@@ -228,11 +239,14 @@ if __name__ == "__main__":
                 basarili("Emoji: {}\nKaç kez atılacak: {}".format(reaction,kackez))
             else:
                 basarili("Yorum: {}".format(yorum))
-                
-    hsp=0
-    for i in range(0,int(kackez)):
+            break
+    toplam=0
+    for i in Clients:
+        if toplam>= int(kackez):
+            basarili("Belirttiğiniz işlem sınırına ulaşıldı ! Yaşasın :)")
+            break
         bilgi("Hesap ayarlanıyor...")
-        app = Clients[hsp]
+        app = i
         app.send_message("me","test")
         bilgi("İşlem deneniyor...")
         #api_hash = dosya[hsp].split("|")[1]
@@ -261,6 +275,6 @@ if __name__ == "__main__":
                 pass
         except Exception as e:
             noadded("Hata: "+str(e))
-        hsp+=1
+        toplam+=1
     disconn()
     bilgi("bitti")
