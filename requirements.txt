@@ -1,3 +1,4 @@
+cryptography
 pyrogram
 pyromod
 TgCrypto
